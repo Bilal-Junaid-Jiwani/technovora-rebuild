@@ -1,0 +1,212 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* ── Light theme — monday.com / Stripe clean ── */
+  --bg: #ffffff;
+  --surface: #fafafa;
+  --text: #09090b;
+  --muted: #52525b;
+  --hairline: #e7e5ea;
+
+  /* ONE brand accent, used sparingly */
+  --accent: #f97316;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(249, 115, 22, 0.1);
+
+  /* Single contained warm wash (light mode only, max one per page) */
+  --wash: linear-gradient(135deg, #fff7ed 0%, #ffedd5 45%, #fce7f3 100%);
+}
+
+.dark {
+  /* ── Dark theme — Vercel / Linear clean ── */
+  --bg: #0a0a0b;
+  --surface: #131316;
+  --text: #fafafa;
+  --muted: #a1a1aa;
+  --hairline: rgba(255, 255, 255, 0.08);
+
+  --accent: #f97316;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(249, 115, 22, 0.14);
+
+  /* No wash in dark mode */
+  --wash: none;
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-surface: var(--surface);
+  --color-foreground: var(--text);
+  --color-muted: var(--muted);
+  --color-hairline: var(--hairline);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+
+  --font-sans: var(--font-inter);
+
+  /* Inter-only rule: every font-mono usage renders in Inter. */
+  --font-mono: var(--font-inter);
+}
+
+/* ── Base ── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ── Type helpers ── */
+.display {
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+}
+
+.h2 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+/* ── Buttons (no pulse, no glow) ── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 500;
+  border-radius: 9999px;
+  padding: 0.8rem 1.6rem;
+  font-size: 0.95rem;
+  transition: background 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+.btn-primary:hover {
+  background: #ea6a0a;
+}
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--text);
+  font-weight: 500;
+  border: 1px solid var(--hairline);
+  border-radius: 9999px;
+  padding: 0.8rem 1.6rem;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+.btn-secondary:hover {
+  border-color: var(--muted);
+  background: var(--surface);
+}
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 1rem;
+}
+
+/* ── Eyebrow label ── */
+.eyebrow {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Hairline divider ── */
+.rule {
+  border-top: 1px solid var(--hairline);
+}
+
+/* ── Focus visibility ── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   LEGACY SHIMS — preserved /about page only.
+   AboutHorizontalSection (kept byte-identical per user request) predates
+   the rebuild token system and uses these old tokens/utilities.
+   DO NOT use in new code — new code uses the tokens above.
+───────────────────────────────────────────── */
+@theme inline {
+  --color-bg-base: var(--bg);
+  --color-bg-surface: var(--surface);
+  --color-bg-border: var(--hairline);
+  --color-text: var(--text);
+  --color-text-muted: var(--muted);
+  --color-orange: var(--accent);
+  --color-magenta: #a02077;
+  --color-brand-black: #0d0d0d;
+}
+
+.font-bebas {
+  font-family: var(--font-bebas), "Impact", "Arial Narrow", sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.font-display {
+  font-family: var(--font-syne), var(--font-inter), system-ui, sans-serif;
+}
+
+/* Related-link box at the end of blog articles: restrained bordered note. */
+.related-link {
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+}
+.related-link a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.related-link a:hover {
+  text-decoration-thickness: 2px;
+}
